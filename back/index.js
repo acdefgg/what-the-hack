@@ -88,6 +88,9 @@ app.post('/getinqueue', async (req, res) => {
   const uid = uuidv4();
   const lat = req.body.lat
   const lon = req.body.lon
+  console.log('***')
+  console.log(req.body)
+  console.log(lat, lon)
   
   const spots = await Spot.findAll()
   const newUser = await User.create({
@@ -168,7 +171,7 @@ app.post('/getinfo', async (req, res) => {
   }
 
 
-  return res.send('хуй те')
+  return res.status(205).send('хуй те')
 })
 
 app.get('/users', async (req, res) => {
