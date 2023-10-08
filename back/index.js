@@ -125,7 +125,7 @@ app.post('/getinfo', async (req, res) => {
   if (readyUsers[uid]) {
     let spotId = readyUsers[uid]
     //delete readyUsers[uid]
-    let spot = await Spot.findOne({id: spotId})
+    let spot = await Spot.findOne({where: {id: spotId}})
     await User.destroy({
       where: {
         uid: uid
@@ -160,7 +160,7 @@ app.post('/getinfo', async (req, res) => {
       }
       let spotId = readyUsers[uid]
       //delete readyUsers[uid]
-      let spot = await Spot.findOne({id: spotId})
+      let spot = await Spot.findOne({where: {id: spotId}})
       await User.destroy({
         where: {
           uid: uid
