@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: your_postgres_user
+      POSTGRES_PASSWORD: your_postgres_password
+      POSTGRES_DB: your_database_name
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./back  # Путь к директории с Dockerfile для бэкенда
+    container_name: backend-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://your_postgres_user:your_postgres_password@postgres:5432/your_database_name
+
+  # frontend:
+  #   build:
+  #     context: ./frontend  # Путь к директории с Dockerfile для фронтенда
+  #   container_name: frontend-app
+  #   ports:
+  #     - "80:3000"
+  #   depends_on:
+  #     - backend
