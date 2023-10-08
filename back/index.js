@@ -3,10 +3,11 @@ const geolib = require('geolib')
 const { Sequelize, DataTypes } = require('sequelize')
 //const dotenv = require('dotenv');
 const { v4: uuidv4 } = require('uuid');
-
+var cors = require('cors')
 
 
 const app = express()
+app.use(cors())
 app.use(express.json());
 const port = 3000
 
