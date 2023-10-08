@@ -112,7 +112,7 @@ app.post('/getinqueue', async (req, res) => {
     
   }
 
-  return res.send(spots)
+  return res.send({uid})
 })
 
 app.post('/getinfo', async (req, res) => {
@@ -120,8 +120,13 @@ app.post('/getinfo', async (req, res) => {
   
   if (readyUsers[uid]) {
     let spotId = readyUsers[uid]
-    delete readyUsers[uid]
+    //delete readyUsers[uid]
     let spot = await Spot.findOne({id: spotId})
+    await User.destroy({
+      where: {
+        uid: uid
+      }
+    })
     return res.send({lat: spot.lat, lon: spot.lon})
   }
 
@@ -150,14 +155,19 @@ app.post('/getinfo', async (req, res) => {
         readyUsers[j.uid] = i.id
       }
       let spotId = readyUsers[uid]
-      delete readyUsers[uid]
+      //delete readyUsers[uid]
       let spot = await Spot.findOne({id: spotId})
+      await User.destroy({
+        where: {
+          uid: uid
+        }
+      })
       return res.send({lat: spot.lat, lon: spot.lon})
     }
   }
 
 
-  return res.send(spots)
+  return res.send('хуй те')
 })
 
 app.get('/users', async (req, res) => {
